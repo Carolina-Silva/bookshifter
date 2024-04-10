@@ -1,7 +1,11 @@
 import {
     createBrowserRouter, Outlet, RouterProvider,
   } from 'react-router-dom';
-
+import home from './home';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import login from './login';
+import signUp from './signUp';
   
   const routes = [{
     path: '',
