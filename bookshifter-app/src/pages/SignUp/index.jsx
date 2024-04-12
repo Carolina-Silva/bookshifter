@@ -1,76 +1,64 @@
-import { React, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { auth } from '../../services/firebaseConfig';
+import { React, useState } from "react";
+import { Link } from "react-router-dom";
+import { FaGoogle, FaFacebookF } from "react-icons/fa";
+import logo from "../../img/logo.png";
+import art from "../../img/art.png";
+import { useSpring, animated, config } from "react-spring";
 
 function SignUp() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [nome, setNome] = useState('');
-  const [sobrenome, setSobrenome] = useState('');
-  const [errorText, setErrorText] = useState('');
-
-  const [
-    createUserWithEmailAndPassword,
-    user,
-    loading,
-    error,
-  ] = useCreateUserWithEmailAndPassword(auth);
-
-  const handleSignOut = async (e) => {
-    e.preventDefault();
-
-    if (!email || !password || !nome || !sobrenome) {
-      setErrorText('Todos os campos são obrigatórios.');
-      return;
-    }
-
-    if (password.length < 6) {
-      setErrorText('A senha deve conter pelo menos 6 caracteres.');
-      return;
-    }
-
-    try {
-      const userCredential = await createUserWithEmailAndPassword(email, password, {
-        displayName: `${nome} ${sobrenome}`
-      });
-
-      if (userCredential) {
-        // O registro foi bem-sucedido, você pode redirecionar para a página de login ou outra ação necessária
+  // Animação
+  const [isHovered, setIsHovered] = useState(false);
+  const props = useSpring({
+    from: { transform: "translateY(0px)" },
+    to: async (next) => {
+      while (true) {
+        await next({ transform: "translateY(-10px)" });
+        await next({ transform: "translateY(0px)" });
       }
-    } catch (error) {
-      if (error.code === 'auth/email-already-in-use') {
-        setErrorText('Este e-mail já está em uso por outra conta.');
-      } else if (error.code === 'auth/invalid-email') {
-        setErrorText('O e-mail informado é inválido.');
-      } else {
-        setErrorText('Ocorreu um erro ao criar a conta. Tente novamente.');
-      }
-    }
-  }
-
-  if (loading) {
-    return <p>carregando...</p>
-  }
+    },
+    config: config.wobbly,
+  }); // Fim Animação
 
   return (
-    <div className="min-h-screen py-40 bg-colorLightGrey2">
+    <div className="min-h-screen py-10 bg-colorLightGrey2">
       <div className="container mx-auto">
-        <div className="flex flex-col lg:flex-row w-10/12 lg:w-8/12 bg-white rounded-xl mx-auto shadow-lg overflow-hidden">
-          <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-12 bg-no-repeat bg-cover bg-center bg-colorMidGreen">
-            <h1 className="text-white text-3xl mb-5">Bem-vindo!</h1>
+        <div className="flex flex-col lg:flex-row w-10/12 lg:w-8/12 rounded-xl mx-auto shadow-lg overflow-hidden">
+        <div className="hidden lg:flex w-full lg:w-1/2 flex flex-col items-center justify-center p-12 bg-no-repeat bg-cover bg-center bg-baseColor">
+            <h1 className="text-white text-3xl mt-16 mb-5 font-bold">
+              Bem-vindo ao Bookshifter!
+            </h1>
             <div>
-              <p className="text-white">Se você já possui uma conta, faça{' '}
-                <Link to="/login" className="text-colorAccent3 font-semibold">
-                  login
-                </Link>{' '}
-                agora para acessar todos os recursos e benefícios exclusivos.</p>
+              <p className="text-grayTextColor text-center">
+                Explore uma maneira inovadora de compartilhar livros com leitores de todo o mundo. Cadastre-se agora e faça parte desta comunidade literária vibrante.
+              </p>
             </div>
+            {/* Imagem com animação */}
+            <animated.div style={props}>
+              <img
+                src={art}
+                alt="Uma menina no centro, com celular não mão. Aparecendo notificações no celular."
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              />
+            </animated.div>
           </div>
+
           <div className="w-full lg:w-1/2 py-16 px-12">
-            <h2 className="text-3xl mb-4">Cadastre-se</h2>
-            <p className="mb-4">
-              Crie sua conta. É grátis e leva apenas um minuto.
+            {/* Logo */}
+            <Link to="/">
+              <div className="cursor-pointer flex items-center gap-1 my-8">
+                <img src={logo} alt="Logo" className="w-28" />
+              </div>
+            </Link>
+            <h2 className="text-3xl mb-4 font-extrabold">Cadastrar</h2>
+            <p className="text-black my-5 font-light">
+              Já possui uma conta?{" "}
+              <Link
+                to="/login"
+                className="text-colorAccent3 font-semibold underline hover:text-buttonColor"
+              >
+                Entrar agora!
+              </Link>{" "}
             </p>
             <div className="mt-10 mb-3 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               {/* nome: */}
@@ -86,8 +74,9 @@ function SignUp() {
                     type="text"
                     id="nome"
                     name="nome"
-                    onChange={(e) => setNome(e.target.value)}
-                    className="p-2 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus-within:ring-borderColor sm:text-base sm:leading-6"
+                    placeholder="Digite aqui"
+                    // onChange={(e) => setNome(e.target.value)}
+                    className="p-2 block w-full rounded-md border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus-within:ring-borderColor sm:text-sm sm:leading-6 bg-bgColor"
                   />
                 </div>
               </div>
@@ -104,8 +93,9 @@ function SignUp() {
                     type="text"
                     id="sobreNome"
                     name="sobreNome"
-                    onChange={(e) => setSobrenome(e.target.value)}
-                    className="p-2 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus-within:ring-borderColor sm:text-base sm:leading-6"
+                    placeholder="Digite aqui"
+                    // onChange={(e) => setSobrenome(e.target.value)}
+                    className="p-2 block w-full rounded-md border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus-within:ring-borderColor sm:text-sm sm:leading-6 bg-bgColor"
                   />
                 </div>
               </div>
@@ -123,8 +113,9 @@ function SignUp() {
                   type="text"
                   id="contatoEmail"
                   name="contatoEmail"
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="p-2 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-borderColor sm:text-base sm:leading-6"
+                  placeholder="exemplo@gmail.com"
+                  // onChange={(e) => setEmail(e.target.value)}
+                  className="p-2 block w-full rounded-md border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-borderColor sm:text-sm sm:leading-6 bg-bgColor"
                 />
               </div>
             </div>
@@ -142,20 +133,53 @@ function SignUp() {
                   type="password"
                   id="senha"
                   name="senha"
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="p-2 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-borderColor sm:text-base sm:leading-6"
+                  placeholder="*************"
+                  // onChange={(e) => setPassword(e.target.value)}
+                  className="p-2 block w-full rounded-md border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-borderColor sm:text-sm sm:leading-6 bg-bgColor"
                 />
               </div>
             </div>
             <div className="mt-5">
-              <button onClick={handleSignOut} className="w-full rounded-md bg-colorMidGreen px-14 py-2 text-base font-semibold text-white shadow-sm hover:bg-colorDarkGreen focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-colorDarkGreen">Registrar</button>
+              <button className="w-full rounded-md bg-buttonColor px-14 py-2 text-base font-semibold text-white shadow-sm hover:bg-colorDarkGreen focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-colorDarkGreen">
+                Cadastrar
+              </button>
+            </div>
+
+            {/* <!-- Divider --> */}
+            <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
+              <p className="mx-4 mb-0 text-center font-semibold dark:text-neutral-200">
+                ou
+              </p>
+            </div>
+            {/* <!-- Social login buttons --> */}
+            <div className="w-full">
+              <a className="mb-3 flex w-full items-center justify-center rounded-xl bg-primary px-7 pb-2.5 pt-3 text-center text-base font-medium leading-normal text-blackColor 
+    border transition duration-150 ease-in-out bg-transparent hover:bg-baseColor hover:text-white"
+                href="#!"
+                role="button"
+              >
+                {/* <!-- Google --> */}
+                <FaGoogle className="mr-4 w-3" />
+                Crie com o Google
+              </a>
+            </div>
+            <div className="w-full">
+              <a className="mb-3 flex w-full items-center justify-center rounded-xl bg-primary px-7 pb-2.5 pt-3 text-center text-base font-medium leading-normal text-blackColor border transition duration-150 ease-in-out 
+bg-transparent hover:bg-baseColor hover:text-white"
+                href="#!"
+                role="button"
+              >
+                {/* <!-- Facebook --> */}
+                <FaFacebookF className="mr-3 w-3" />
+                Crie com o Facebook
+              </a>
             </div>
           </div>
         </div>
-        <div className='lg:flex-row w-10/12 lg:w-8/12 mt-5 mx-auto'>
-          {errorText && (
-            <p className="text-2xl font-bold text-red-500">{errorText}</p>
-          )}
+        <div className="lg:flex-row w-10/12 lg:w-8/12 mt-5 mx-auto">
+          {/* {errorText && ( 
+            // <p className="text-2xl font-bold text-red-500">{errorText}</p>
+          // */}
         </div>
       </div>
     </div>

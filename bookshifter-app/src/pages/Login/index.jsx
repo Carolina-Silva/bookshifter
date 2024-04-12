@@ -58,7 +58,7 @@ function Login() {
                     id="email"
                     name="email"
                     placeholder="exemplo@gmail.com"
-                    className="p-2 block w-full rounded-xl border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-borderColor sm:text-sm sm:leading-6"
+                    className="p-2 block w-full rounded-xl border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-borderColor sm:text-sm sm:leading-6 bg-bgColor"
                   />
                 </div>
               </div>
@@ -84,7 +84,7 @@ function Login() {
                     id="password"
                     name="password"
                     placeholder="*************"
-                    className="p-2 block w-full rounded-xl border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-borderColor sm:text-sm sm:leading-6"
+                    className="p-2 block w-full rounded-xl border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-borderColor sm:text-sm sm:leading-6 bg-bgColor"
                   />
                 </div>
               </div>
@@ -98,7 +98,7 @@ function Login() {
               {/* <!-- Divider --> */}
               <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
                 <p className="mx-4 mb-0 text-center font-semibold dark:text-neutral-200">
-                  OU
+                  ou
                 </p>
               </div>
 

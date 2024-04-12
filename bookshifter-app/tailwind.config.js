@@ -13,6 +13,7 @@ export default {
         blackColor: '#000000',
         whitheColor:'#FFFFFF',
         grayTextColor: '#CFD9E0',
+        bgColor: '#F7FAFC',
       },
       fontFamily: {
         nunito: ['"Nunito"']
