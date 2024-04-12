@@ -1,52 +1,34 @@
-import { Typography } from "@material-tailwind/react";
-import { CursorArrowRaysIcon } from '@heroicons/react/24/solid'
+import logo from '../../img/logo.png';
+
 export default function Footer() {
   return (
-    <footer className="w-full bg-colorMidGreen p-8">
-      <div className="flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 bg-colorMidGreen text-center md:justify-between">
+    <footer className="w-full p-8">
+      <div className="flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 text-center md:justify-between">
         {/* LOGO */}
-        <div className='font-bold text-2xl cursor-pointer flex items-center gap-1'>
-          <CursorArrowRaysIcon className='w-7 h-7 text-white' />
-          <span className="text-white">NoPonto</span>
+        <div>
+          <div>
+            <img src={logo} alt="Logo"/>
+            <p className="text-base	mt-9 font-normal sm:text-left">Descubra o mundo da leitura de uma forma inovadora com o Bookshifter.</p>
+          </div>
         </div>
 
         <ul className="flex flex-wrap items-center gap-y-2 gap-x-8">
           <li>
-            <Typography
-              as="a"
-              href="#"
-              color="blue-gray"
-              className="font-normal text-white transition-colors hover:text-colorGreen focus:text-colorGreen"
-            >
-              Sobre
-            </Typography>
+            <a href="#" className="font-normal text-blackColor transition-colors hover:text-buttonColor focus:text-buttonColor me-4 md:me-4">Sobre</a>
           </li>
           <li>
-            <Typography
-              as="a"
-              href="#"
-              color="blue-gray"
-              className="font-normal text-white transition-colors hover:text-colorGreen focus:text-colorGreen"
-            >
-              Licença
-            </Typography>
+            <a href="#" className="font-normal text-blackColor transition-colors hover:text-buttonColor focus:text-buttonColor me-4 md:me-4">Política de Privacidade</a>
           </li>
           <li>
-            <Typography
-              as="a"
-              href="#"
-              color="blue-gray"
-              className="font-normal text-white transition-colors hover:text-colorGreen focus:text-colorGreen"
-            >
-              Contato
-            </Typography>
+            <a href="#" className="font-normal text-blackColor transition-colors hover:text-buttonColor focus:text-buttonColor me-4 md:me-4">Licença</a>
+          </li>
+          <li>
+            <a href="#" className="font-normal text-blackColor transition-colors hover:text-buttonColor focus:text-buttonColor">Contato</a>
           </li>
         </ul>
       </div>
       <hr className="my-8 border-blue-gray-50" />
-      <Typography color="blue-gray" className="text-center text-white font-normal">
-        &copy; 2023
-      </Typography>
+      <span className="block text-center text-blackColor font-normal">&copy; 2024</span>
     </footer>
   );
 }
