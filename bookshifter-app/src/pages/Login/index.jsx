@@ -1,86 +1,49 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { sendPasswordResetEmail } from 'firebase/auth';
-import { auth } from '../../services/firebaseConfig';
+import { useState } from "react";
+import { Link, } from "react-router-dom";
+import { FaGoogle, FaFacebookF } from "react-icons/fa";
+import logo from '../../img/logo.png';
+import art from '../../img/art.png';
+import { useSpring, animated, config } from 'react-spring';
+
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  // Animação
+  const [isHovered, setIsHovered] = useState(false);
 
-  const navigate = useNavigate();
+  const props = useSpring({
+    from: { transform: 'translateY(0px)' },
+    to: async next => {
+      while (true) {
+        await next({ transform: 'translateY(-10px)' });
+        await next({ transform: 'translateY(0px)' });
+      }
+    },
+    config: config.wobbly
+  }); // Fim Animação
 
-  const [errorText, setErrorText] = useState(null);
 
-
-  const [
-    signInWithEmailAndPassword,
-    user,
-    loading,
-    error,
-  ] = useSignInWithEmailAndPassword(auth);
-
-  function handleSignIn(e) {
-    e.preventDefault();
-    signInWithEmailAndPassword(email, password)
-      .then(() => {
-        navigate('/dashboard');
-        // if (user) {
-        //   navigate('/dashboard');
-        // } else {
-        //   setErrorText('Ocorreu um erro ao fazer login. Tente novamente.');
-        // }
-      })
-      .catch((error) => {
-        // Tratar erros
-        if (error.code === 'auth/user-not-found') {
-          setErrorText('Usuário não encontrado. Verifique seu e-mail.');
-        } else if (error.code === 'auth/wrong-password') {
-          setErrorText('Senha incorreta. Verifique sua senha.');
-        } else {
-          setErrorText('Ocorreu um erro ao fazer login. Tente novamente.');
-        }
-      });
-  }
-  
-
-  // função de Esqueci a senha 
-  async function handleForgotPassword(e) {
-    e.preventDefault();
-
-    try {
-      await sendPasswordResetEmail(auth, email);
-      alert('Um e-mail de redefinição de senha foi enviado para o seu endereço de e-mail.');
-    } catch (error) {
-      console.error('Erro ao enviar e-mail de redefinição de senha:', error);
-      alert('Ocorreu um erro ao enviar o e-mail de redefinição de senha. Tente novamente.');
-    }
-  }
-  if (loading) {
-    return <p>carregando...</p>
-  }
-  if (user) {
-    return console.log(user);
-  }
   return (
-    <div className="min-h-screen py-40 bg-colorLightGrey2">
-     
+    <div className="min-h-screen py-20">
       <div className="container mx-auto">
-      <div className='lg:flex-row w-10/12 lg:w-8/12 mb-5 mx-auto'>
-      {errorText && (
-        <p className="text-2xl font-bold text-red-500">{errorText}</p>
-      )}
-      </div>
+        {/* <div className='lg:flex-row w-10/12 lg:w-8/12 mb-5 mx-auto'> 
+       {errorText && ( 
+        // <p className="text-2xl font-bold text-red-500">{errorText}</p>
+      // )}
+       </div> */}
         <div className="flex flex-col lg:flex-row w-10/12 lg:w-8/12 bg-white rounded-xl mx-auto shadow-lg overflow-hidden">
-
           <div className="w-full lg:w-1/2 py-16 px-12">
-            <h2 className="text-3xl mb-5">Entrar</h2>
-            <p className="mb-4">
-              Faça login para acessar sua conta.
+             {/* Logo */}
+            <Link to="/">
+                <div className='cursor-pointer flex items-center gap-1 my-8'>
+                    <img src={logo} alt="Logo" className="w-28"/>
+                </div>
+            </Link>
+            <h2 className="text-3xl mb-5 font-extrabold">Entrar</h2>
+            <p className="text-black my-5 font-light">Não tem uma conta?{" "}
+              <Link to="/signup" className="text-colorAccent3 font-semibold underline hover:text-buttonColor">Crie uma agora!</Link>{" "}
             </p>
             {/* Form */}
             <form action="#">
-
               {/* E-mail input */}
               <div className="col-span-full mb-3">
                 <label
@@ -94,19 +57,15 @@ function Login() {
                     type="text"
                     id="email"
                     name="email"
-                    className="p-2 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-borderColor sm:text-base sm:leading-6"
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                      setErrorText(null);
-                    }}
-                    
+                    placeholder="exemplo@gmail.com"
+                    className="p-2 block w-full rounded-xl border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-borderColor sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
 
               {/* Senha input */}
               <div className="col-span-full">
-                <div className='flex items-center justify-between'>
+                <div className="flex items-center justify-between">
                   <label
                     htmlFor="password"
                     className="block text-base font-medium leading-6"
@@ -114,7 +73,9 @@ function Login() {
                     Senha
                   </label>
                   <div className="text-sm">
-                    <button onClick={handleForgotPassword} className="font-semibold text-colorAccent2 hover:text-colorDarkGreen">Esqueceu sua senha?</button>
+                    <button className="font-semibold text-colorAccent2 hover:text-colorDarkGreen underline hover:text-buttonColor">
+                      Esqueceu sua senha?
+                    </button>
                   </div>
                 </div>
                 <div className="mt-2">
@@ -122,33 +83,66 @@ function Login() {
                     type="password"
                     id="password"
                     name="password"
-                    className="p-2 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-borderColor sm:text-base sm:leading-6"
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                      setErrorText(null);
-                    }}
+                    placeholder="*************"
+                    className="p-2 block w-full rounded-xl border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-borderColor sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
 
               <div className="mt-5">
-                <button onClick={handleSignIn} className="w-full rounded-md bg-colorMidGreen px-14 py-2 text-base font-semibold text-white shadow-sm hover:bg-colorDarkGreen focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-colorDarkGreen">Entrar</button>
+                <button className="w-full rounded-xl bg-buttonColor px-14 py-2 text-base font-semibold text-white shadow-sm hover:bg-colorDarkGreen focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-colorDarkGreen">
+                  Entrar
+                </button>
+              </div>
+
+              {/* <!-- Divider --> */}
+              <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
+                <p className="mx-4 mb-0 text-center font-semibold dark:text-neutral-200">
+                  OU
+                </p>
+              </div>
+
+              {/* <!-- Social login buttons --> */}
+              <div className="w-full">
+                <a className="mb-3 flex w-full items-center justify-center rounded-xl bg-primary px-7 pb-2.5 pt-3 text-center text-base font-medium leading-normal text-blackColor 
+                  border transition duration-150 ease-in-out bg-transparent hover:bg-baseColor hover:text-white"
+                  href="#!"
+                  role="button"
+                >
+                  {/* <!-- Google --> */}
+                  <FaGoogle className="mr-4 w-3" />
+                  Continue com Google
+                </a>
+              </div>
+              <div className="w-full">
+                <a className="mb-3 flex w-full items-center justify-center rounded-xl bg-primary px-7 pb-2.5 pt-3 text-center text-base font-medium leading-normal text-blackColor border transition duration-150 ease-in-out bg-transparent hover:bg-baseColor hover:text-white"
+                  href="#!"
+                  role="button"
+                >
+                  {/* <!-- Facebook --> */}
+                  <FaFacebookF className="mr-3 w-3" />
+                  Continue com Facebook
+                </a>
               </div>
             </form>
           </div>
-          <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-12 bg-no-repeat bg-cover bg-center bg-colorMidGreen">
-            <h1 className="text-white text-3xl mb-5">Bem-vindo!</h1>
+          <div className="hidden lg:flex w-full lg:w-1/2 flex-col items-center justify-center p-12 bg-no-repeat bg-cover bg-center bg-baseColor">
+            <h1 className="text-white text-3xl mt-16 mb-5 font-bold">Bem-vindo ao Bookshifter!</h1>
             <div>
-              <p className="text-white">Se você ainda não possui uma conta, cadastre-se{' '}
-                <Link to="/signup" className="text-colorAccent3 font-semibold">
-                  aqui
-                </Link>{' '}
-                para desfrutar de todos os recursos e benefícios exclusivos.</p>
+              <p className="text-grayTextColor text-center">Descubra uma nova forma de adquiri livros com leitores diversos. Junte-se à nossa comunidade hoje e viva uma experiência literária única.</p>
             </div>
+            {/* Imagem com animação */}
+            <animated.div style={props}>
+              <img 
+                src={art} 
+                alt="Uma menina no centro, com celular não mão. Aparecendo notificações no celular."
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              />
+            </animated.div>
           </div>
         </div>
       </div>
-      
     </div>
   );
 }
