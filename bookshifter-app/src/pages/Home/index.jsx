@@ -2,10 +2,53 @@ import React from "react";
 import { BsBook } from "react-icons/bs";
 import { LiaDoorOpenSolid } from "react-icons/lia";
 import { HiOutlineLockOpen } from "react-icons/hi2";
+import BookCard from "../../components/BookCard";
 
 function Home() {
   return (
     <div className="container mx-auto px-2 my-40">
+      {/* Home */}
+      <section className="my-20 ">
+        <div className="relative h-[400px]">
+          <div className="bg-blue-100 max-w-[500px]  w-[550px] h-[250px] py-2 px-4 rounded-md z-30 absolute top-[80px] left-[250px]">
+            <h1 className="text-5xl font-extrabold mb-2 mt-4">
+              Doe seus livros e
+              transforme vidas
+            </h1>
+            <div className="text-1xl font-base mb-5">
+              Descubra como o Bookshifter está revolucionando a educação e o meio ambiente através da doação de livros.
+            </div>
+            <button className="bg-buttonColor text-white mt-1 py-2 px-4 rounded-md">
+              Doar agora
+            </button>
+          </div>
+          <div className="bg-red-300 absolute top-0 left-[700px] w-[500px] h-[350px] py-2 px-4 rounded-md z-20">
+            {/* <img src={logo} alt="capa do livro" className="w-full h-full" /> */}
+          </div>
+          <div className="bg-orange-300 absolute top-[40px] left-[650px] w-[500px] h-[350px] py-2 px-4 rounded-md z-10"></div>
+        </div>
+
+      </section>
+
+      {/* Nossa biblioteca */}
+      <section className="my-20">
+        <h3 className="text-5xl font-extrabold mb-8 mt-4 text-center">
+          Nossa biblioteca
+        </h3>
+        <div className="text-1xl font-base text-center mb-8">
+          Explore nossa seleção de livros para encontrar sua
+          próxima grande leitura.
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-5 gap-1">
+          <BookCard />
+          <BookCard />
+          <BookCard />
+          <BookCard />
+          <BookCard />
+          <BookCard />
+        </div>
+      </section>
+
       {/* Beneficios */}
       <section className="my-20">
         <span className="font-base text-buttonColor font-extrabold">
@@ -18,7 +61,7 @@ function Home() {
           <div className="sm:flex sm:w-full mb-5">
             <div>
               <span className="font-extrabold text-buttonColor text-4xl">
-              <BsBook />
+                <BsBook />
               </span>
               <h3 className="text-2xl font-bold leading-none text-blackColor mt-8 mb-4">
                 Diversidade de Livros
@@ -30,7 +73,7 @@ function Home() {
           </div>
           <div className="sm:flex sm:w-full mb-5">
             <div>
-            <span className="font-extrabold text-buttonColor text-4xl"><HiOutlineLockOpen /></span>
+              <span className="font-extrabold text-buttonColor text-4xl"><HiOutlineLockOpen /></span>
               <h3 className="text-2xl font-bold leading-none text-blackColor mt-8 mb-4">
                 Acesso Eficiente e Conveniente
               </h3>
@@ -42,7 +85,7 @@ function Home() {
           </div>
           <div className="sm:flex sm:w-full mb-5">
             <div>
-            <span className="font-extrabold text-buttonColor text-4xl"><LiaDoorOpenSolid /></span>
+              <span className="font-extrabold text-buttonColor text-4xl"><LiaDoorOpenSolid /></span>
               <h3 className="text-2xl font-bold leading-none text-blackColor mt-8 mb-4">
                 Acesso Livre a Conhecimento
               </h3>
