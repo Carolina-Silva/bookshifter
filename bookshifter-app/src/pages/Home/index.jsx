@@ -2,8 +2,9 @@ import React from "react";
 import { BsBook } from "react-icons/bs";
 import { LiaDoorOpenSolid } from "react-icons/lia";
 import { HiOutlineLockOpen } from "react-icons/hi2";
-import BookCard from "../../components/BookCard";
+import BookCarousel from "../../components/BookCarousel";
 import imgHome from "../../img/img-home.png";
+import imgCard from "../../img/teste.jpg";
 
 function Home() {
   return (
@@ -39,14 +40,7 @@ function Home() {
           Explore nossa seleção de livros para encontrar sua próxima grande
           leitura.
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-5 gap-1">
-          <BookCard />
-          <BookCard />
-          <BookCard />
-          <BookCard />
-          <BookCard />
-          <BookCard />
-        </div>
+        <BookCarousel imgUrl={imgCard} />
       </section>
 
       {/* Beneficios */}
