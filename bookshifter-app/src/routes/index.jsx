@@ -6,6 +6,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import login from './login';
 import signUp from './signUp';
+import searchBooks from './searchBooks';
   
   const routes = [{
     path: '',
@@ -18,6 +19,7 @@ import signUp from './signUp';
     ),
     children: [
       ...home,
+      ...searchBooks,
     ],
   },
 ];
