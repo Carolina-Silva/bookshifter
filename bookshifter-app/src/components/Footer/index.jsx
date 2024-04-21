@@ -14,7 +14,7 @@ export default function Footer() {
 
         <ul className="flex flex-wrap items-center gap-y-2 gap-x-8">
           <li>
-            <a href="#" className="font-normal text-blackColor transition-colors hover:text-buttonColor focus:text-buttonColor me-4 md:me-4">Sobre</a>
+            <a href="#" className="font-normal text-blackColor transition-colors hover:text-buttonColor focus:text-buttonColor me-4 md:me-4">Sobre nós</a>
           </li>
           <li>
             <a href="#" className="font-normal text-blackColor transition-colors hover:text-buttonColor focus:text-buttonColor me-4 md:me-4">Política de Privacidade</a>

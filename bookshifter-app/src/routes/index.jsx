@@ -7,6 +7,8 @@ import Footer from '../components/Footer';
 import login from './login';
 import signUp from './signUp';
 import searchBooks from './searchBooks';
+import myBooks from './myBooks';
+import bookDetails from './bookDetails';
   
   const routes = [{
     path: '',
@@ -20,6 +22,8 @@ import searchBooks from './searchBooks';
     children: [
       ...home,
       ...searchBooks,
+      ...myBooks,
+      ...bookDetails,
     ],
   },
 ];

@@ -5,10 +5,9 @@ import logo from '../../img/logo.png';
 
 export default function Navbar() {
     let Links = [
-        { name: "Benefícios", link: "/" },
-        { name: "Como funciona", link: "/" },
-        { name: "Depoimentos", link: "/" },
-        { name: "Sobre nós", link: "/" },
+        { name: "Benefícios", href: "#beneficios" },
+        { name: "Como funciona", href: "#funciona" },
+        { name: "Depoimentos", href: "#depoimentos" },
     ];
     let [open, setOpen] = useState(false);
     
@@ -31,7 +30,7 @@ export default function Navbar() {
                 <ul className={`md:flex md:items-center justify-center md:pb-0 pb-12 absolute md:static bg-white md:z-auto z-[-1] left-1/2 transform -translate-x-1/2 md:translate-x-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in ${open ? 'top-12' : 'top-[-490px]'}`}>
                     {Links.map((link, index) => (
                         <li key={index} className='md:ml-8 md:my-0 my-7 font-semibold px-2 py-1 rounded'>
-                            <a href={link.link} className='font-semibold text-black hover:text-buttonColor duration-500'>
+                            <a href={link.href} className='font-semibold text-black hover:text-buttonColor duration-500'>
                                 {link.name}
                             </a>
                         </li>

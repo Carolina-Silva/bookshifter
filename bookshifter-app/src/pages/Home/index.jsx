@@ -44,7 +44,7 @@ function Home() {
       </section>
 
       {/* Beneficios */}
-      <section className="xl:my-20 px-10 xl:px-40">
+      <section className="xl:my-20 px-10 xl:px-40" id="beneficios">
         <span className="font-base text-buttonColor font-extrabold">
           Benefícios
         </span>
@@ -97,7 +97,7 @@ function Home() {
       </section>
 
       {/* Como Funciona */}
-      <section className="px-10 xl:px-40 mt-5">
+      <section className="px-10 xl:px-40 mt-5" id="funciona">
         <span className="font-base text-buttonColor font-extrabold">
           Como funciona
         </span>
