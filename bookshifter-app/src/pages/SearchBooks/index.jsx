@@ -39,7 +39,7 @@ function SearchBooks() {
           </div>
         </form>
         <div
-          className="absolute top-7 w-full xl:h-[450px] h-[300px] z-0"
+          className="absolute top-7 w-full xl:h-[350px] h-[450px] z-0"
           style={{ marginBottom: "3rem" }}
         >
           <img
@@ -49,8 +49,8 @@ function SearchBooks() {
           />
         </div>
       </div>
-      <div className="container mx-auto">
-        <div className="px-10 xl:mt-36 mt-20">
+      <div className="container mx-auto px-10 xl:px-40">
+        <div className="xl:mt-12 mt-20">
           <h2 className="xl:text-4xl font-extrabold mb-8 mt-4 text-left text-2xl md:text-3xl">
           Todos os livros
           </h2>
