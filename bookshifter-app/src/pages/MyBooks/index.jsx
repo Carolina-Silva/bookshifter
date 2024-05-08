@@ -13,15 +13,16 @@ function MyBooks() {
           </h1>
         </div>
       </div>
-      <div className="xl:h-[400px] h-[250px]">
+      <div className="h-[400px] xl:h-[300px]">
         <img
           src={imgBooks}
           alt="Imagem contendo vários livros abertos."
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="container mx-auto">
-        <div className="px-10 xl:mt-20 mt-10 flex items-center justify-between">
+      <section className="container mx-auto px-10 xl:px-40">
+         {/* Meus livros cadastrados */}
+        <div className="xl:mt-20 mt-10 flex items-center justify-between">
           <h2 className="xl:text-4xl font-extrabold mb-8 mt-4 text-left text-2xl md:text-3xl">
             Meus livros cadastrados
           </h2>
@@ -34,14 +35,14 @@ function MyBooks() {
             <span className="hidden md:inline">Cadastrar um novo livro</span>
           </Link>
         </div>
-      </div>
-      <div className="container mx-auto">
-        <div className="px-10 xl:mt-20 mt-20">
+
+        {/* Minha lista */}
+        <div className="xl:mt-20 mt-20">
           <h2 className="xl:text-4xl font-extrabold mb-8 mt-4 text-left text-2xl md:text-3xl">
             Minha lista
           </h2>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

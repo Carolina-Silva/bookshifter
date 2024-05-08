@@ -8,7 +8,7 @@ function BookDetails() {
   // Modal
   const [open, setOpen] = useState(false);
   return (
-    <div className="container mx-auto px-10">
+    <div className="container mx-auto px-10 xl:px-40">
       <div className="flex flex-wrap xl-mt-40 items-start mt-28">
         <div className="xl:w-1/3 flex justify-center xl:justify-start">
           <img src={book} alt="" className="xl:w-[300px] w-[300px]" />
@@ -25,12 +25,12 @@ function BookDetails() {
           <p className="text-1xl font-base mb-2">
             <span className="font-bold text-base">Autor: </span>John Green
           </p>
-          <p className="text-1xl font-base mb-2">
+          <p className="text-1xl font-base mb-2 text-justify">
             <span className="font-bold text-base">Estado do Livro: </span>Em bom
             estado, algumas marcas de uso na capa, mas páginas internas intactas
             e sem rasuras.
           </p>
-          <p className="text-1xl font-base mb-2">
+          <p className="text-1xl font-base mb-2 text-justify">
             <span className="font-bold text-base">Sinopse Breve: </span>A Culpa
             é das Estrelas é uma história comovente que segue a jornada de Hazel
             Grace Lancaster, uma jovem com câncer, e Augustus Waters, um rapaz
