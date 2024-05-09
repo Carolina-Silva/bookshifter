@@ -9,6 +9,7 @@ import signUp from './signUp';
 import searchBooks from './searchBooks';
 import myBooks from './myBooks';
 import bookDetails from './bookDetails';
+import bookRegistrations from './bookRegistrations';
   
   const routes = [{
     path: '',
@@ -24,6 +25,7 @@ import bookDetails from './bookDetails';
       ...searchBooks,
       ...myBooks,
       ...bookDetails,
+      ...bookRegistrations,
     ],
   },
 ];
