@@ -11,7 +11,7 @@ function BookRegistrations() {
   const [modalText, setModalText] = useState("Lembramos que é importante levar os livros até a Fatec o mais breve possível");
 
   const handleOpenModal = (event) => {
-    event.preventDefault(); // Impede o comportamento padrão do botão
+    event.preventDefault();
     setModalOpen(true);
   };
 
