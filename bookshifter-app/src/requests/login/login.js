@@ -27,7 +27,7 @@ export default class LoginRequest {
   }
 
   async registerUser(user) {
-    const response = await this.request.post(`${this.url}/register`, user);
+    const response = await this.request.post(`/register`, user);
     return response;
   }
 }

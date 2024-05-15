@@ -41,11 +41,14 @@ const handleChange = (event) => {
    setModalOpen(true);
  };
 
- const registerUser = async () => {console.log('oi')
-
+ const registerUser = async () => {
   const newUser = await loginHook.registerUser(userForm);
 
-  navigate('/login');
+  if(newUser){
+    navigate('/login');
+  }
+
+ 
 };
 
   return (
@@ -79,7 +82,7 @@ const handleChange = (event) => {
                 <img src={logo} alt="Logo" className="w-28" />
               </div>
             </Link>
-            <h2 className="text-3xl mb-4 font-extrabold" onClick={registerUser}>Cadastrar</h2>
+            <h2 className="text-3xl mb-4 font-extrabold">Cadastrar</h2>
             <p className="text-black my-5 font-light">
               Já possui uma conta?{" "}
               <Link
@@ -93,7 +96,7 @@ const handleChange = (event) => {
               {/* nome: */}
               <div className="sm:col-span-3 sm:col-start-1">
                 <label
-                  htmlFor="nome"
+                  htmlFor="firstName"
                   className="block text-base font-medium leading-6"
                 >
                   Nome:
@@ -101,11 +104,10 @@ const handleChange = (event) => {
                 <div className="mt-2">
                   <input
                     type="text"
-                    id="nome"
-                    name="nome"
-                    onFocus={handleChange}
+                    id="firstName"
+                    name="firstName"
+                    onChange={handleChange}
                     placeholder="Digite aqui"
-                    // onChange={(e) => setNome(e.target.value)}
                     className="p-2 block w-full rounded-md border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus-within:ring-borderColor sm:text-sm sm:leading-6 bg-bgColor"
                   />
                 </div>
@@ -113,7 +115,7 @@ const handleChange = (event) => {
               {/* sobrenome:: */}
               <div className="sm:col-span-3">
                 <label
-                  htmlFor="sobreNome"
+                  htmlFor="lastName"
                   className="block text-base font-medium leading-6"
                 >
                   Sobrenome:
@@ -121,11 +123,10 @@ const handleChange = (event) => {
                 <div className="mt-2">
                   <input
                     type="text"
-                    id="sobreNome"
-                    name="sobreNome"
-                    onFocus={handleChange}
+                    id="lastName"
+                    name="lastName"
+                    onChange={handleChange}
                     placeholder="Digite aqui"
-                    // onChange={(e) => setSobrenome(e.target.value)}
                     className="p-2 block w-full rounded-md border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus-within:ring-borderColor sm:text-sm sm:leading-6 bg-bgColor"
                   />
                 </div>
@@ -134,7 +135,7 @@ const handleChange = (event) => {
             {/* E-mail input */}
             <div className="col-span-full mb-3">
               <label
-                htmlFor="contatoEmail"
+                htmlFor="email"
                 className="block text-base font-medium leading-6"
               >
                 E-mail
@@ -142,11 +143,10 @@ const handleChange = (event) => {
               <div className="mt-2">
                 <input
                   type="text"
-                  id="contatoEmail"
-                  name="contatoEmail"
-                  onFocus={handleChange}
+                  id="email"
+                  name="email"
+                  onChange={handleChange}
                   placeholder="exemplo@gmail.com"
-                  // onChange={(e) => setEmail(e.target.value)}
                   className="p-2 block w-full rounded-md border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-borderColor sm:text-sm sm:leading-6 bg-bgColor"
                 />
               </div>
@@ -155,7 +155,7 @@ const handleChange = (event) => {
             {/* Senha input */}
             <div className="col-span-full">
               <label
-                htmlFor="senha"
+                htmlFor="password"
                 className="block text-base font-medium leading-6"
               >
                 Senha
@@ -163,17 +163,16 @@ const handleChange = (event) => {
               <div className="mt-2">
                 <input
                   type="password"
-                  id="senha"
-                  name="senha"
-                  onFocus={handleChange}
+                  id="password"
+                  name="password"
+                  onChange={handleChange}
                   placeholder="*************"
-                  // onChange={(e) => setPassword(e.target.value)}
                   className="p-2 block w-full rounded-md border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-borderColor sm:text-sm sm:leading-6 bg-bgColor"
                 />
               </div>
             </div>
             <div className="mt-5">
-              <button className="w-full rounded-md bg-buttonColor px-14 py-2 text-base font-semibold text-white shadow-sm hover:bg-colorDarkGreen focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-colorDarkGreen" onClick={handleOpenModal}>
+              <button onClick={registerUser} className="w-full rounded-md bg-buttonColor px-14 py-2 text-base font-semibold text-white shadow-sm hover:bg-colorDarkGreen focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-colorDarkGreen">
                 Cadastrar
               </button>
             </div>

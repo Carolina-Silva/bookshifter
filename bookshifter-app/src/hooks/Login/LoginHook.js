@@ -79,7 +79,7 @@ export default class LoginHook extends Hook {
   async registerUser(userData) {
     try {
       const response = await this.loginRequest.registerUser(userData);
-      const data = response.data; // Corrigido para 'response.data'
+      const data = response.data;
       return data;
     } catch (error) {
       this.handleException(error);
