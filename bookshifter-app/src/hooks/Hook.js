@@ -1,4 +1,4 @@
-export class Hook {
+export default class Hook {
   setNavigate(navigate) {
     this.navigate = navigate;
   }

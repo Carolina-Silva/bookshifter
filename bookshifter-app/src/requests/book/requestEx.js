@@ -1,6 +1,3 @@
-const { RequestShape, Response } = require('../../lib/utils/requests/request');
-const { LitterData } = require('./LitterData');
-
 class LitterRequest {
   constructor(request) {
     this.url = '/litter';

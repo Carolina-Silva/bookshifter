@@ -1,16 +1,17 @@
-export default class AxiosRequest {
+import axios from 'axios';
+import cookieManager from '../cookies/index';
+
+class AxiosRequest {
   constructor(baseUrl) {
     this.api = axios.create({
       baseURL: baseUrl,
       withCredentials: true,
     });
 
-    if (cookieManager.getItem('token') !== undefined) {
+    if (cookieManager.getCookie('token') !== undefined) {
       this.api.interceptors.request.use(async (config) => {
         const conf = config;
-        if (conf.headers) {
-          conf.headers.authorization = `Bearer ${cookieManager.getItem('token')}`;
-        }
+        conf.headers.authorization = `Bearer ${cookieManager.getCookie('token')}`;
         return conf;
       });
     }
@@ -27,9 +28,7 @@ export default class AxiosRequest {
   async insertToken(token) {
     this.api.interceptors.request.use(async (config) => {
       const conf = config;
-      if (conf.headers) {
-        conf.headers.authorization = token;
-      }
+      conf.headers.authorization = token;
       return conf;
     });
   }
@@ -37,9 +36,7 @@ export default class AxiosRequest {
   addHeader(key, value) {
     this.api.interceptors.request.use(async (config) => {
       const conf = config;
-      if (conf.headers) {
-        conf.headers[key] = value;
-      }
+      conf.headers[key] = value;
       return conf;
     });
   }
@@ -48,3 +45,5 @@ export default class AxiosRequest {
     return this.api;
   }
 }
+
+export default AxiosRequest;

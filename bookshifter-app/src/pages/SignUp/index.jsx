@@ -7,6 +7,7 @@ import logo from "../../img/logo.png";
 import art from "../../img/art.png";
 import { useSpring, animated, config } from "react-spring";
 import Modal from "../../components/Modal/index";
+import loginHook from "../../hooks/Login/index";
 
 function SignUp() {
   // Animação
@@ -28,10 +29,24 @@ function SignUp() {
  const [modalTextPar, setModalTextPar] = useState("");
  const [modalSpan, setModalSpan] = useState("OBS.:");
  const [modalText, setModalText] = useState("Por favor, verifique sua caixa de entrada de e-mail para validar seu cadastro.");
+
+ const [userForm, setUserForm] = useState();
+
+const handleChange = (event) => {
+  setUserForm({ ...userForm, [event.target.name]: event.target.value });
+};
+ 
  const handleOpenModal = (event) => {
    event.preventDefault();
    setModalOpen(true);
  };
+
+ const registerUser = async () => {console.log('oi')
+
+  const newUser = await loginHook.registerUser(userForm);
+
+  navigate('/login');
+};
 
   return (
     <div className="min-h-screen py-10 bg-colorLightGrey2">
@@ -64,7 +79,7 @@ function SignUp() {
                 <img src={logo} alt="Logo" className="w-28" />
               </div>
             </Link>
-            <h2 className="text-3xl mb-4 font-extrabold">Cadastrar</h2>
+            <h2 className="text-3xl mb-4 font-extrabold" onClick={registerUser}>Cadastrar</h2>
             <p className="text-black my-5 font-light">
               Já possui uma conta?{" "}
               <Link
@@ -88,6 +103,7 @@ function SignUp() {
                     type="text"
                     id="nome"
                     name="nome"
+                    onFocus={handleChange}
                     placeholder="Digite aqui"
                     // onChange={(e) => setNome(e.target.value)}
                     className="p-2 block w-full rounded-md border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus-within:ring-borderColor sm:text-sm sm:leading-6 bg-bgColor"
@@ -107,6 +123,7 @@ function SignUp() {
                     type="text"
                     id="sobreNome"
                     name="sobreNome"
+                    onFocus={handleChange}
                     placeholder="Digite aqui"
                     // onChange={(e) => setSobrenome(e.target.value)}
                     className="p-2 block w-full rounded-md border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus-within:ring-borderColor sm:text-sm sm:leading-6 bg-bgColor"
@@ -127,6 +144,7 @@ function SignUp() {
                   type="text"
                   id="contatoEmail"
                   name="contatoEmail"
+                  onFocus={handleChange}
                   placeholder="exemplo@gmail.com"
                   // onChange={(e) => setEmail(e.target.value)}
                   className="p-2 block w-full rounded-md border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-borderColor sm:text-sm sm:leading-6 bg-bgColor"
@@ -147,6 +165,7 @@ function SignUp() {
                   type="password"
                   id="senha"
                   name="senha"
+                  onFocus={handleChange}
                   placeholder="*************"
                   // onChange={(e) => setPassword(e.target.value)}
                   className="p-2 block w-full rounded-md border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-borderColor sm:text-sm sm:leading-6 bg-bgColor"

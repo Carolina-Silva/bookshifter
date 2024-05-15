@@ -1,7 +1,7 @@
-import AxiosRequest from '../lib/utils/requests/AxiosRequest';
-import { Request } from '../lib/utils/requests/request';
+import AxiosRequest from '../lib/utils/requests/AxiosRequest.js';
+import  Request from '../lib/utils/requests/Request.js';
 
-const baseUrl = 'sua-url-base-aqui'; // Substitua 'sua-url-base-aqui' pela URL base real
+const baseUrl = 'http://localhost:3003';
 
 export const axiosRequest = new AxiosRequest(baseUrl);
 
