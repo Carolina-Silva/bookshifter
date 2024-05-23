@@ -1,13 +1,13 @@
-import { Fragment, useRef, useState } from 'react'
+import {  useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
-import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
+import { handleRegisterSubmit } from '../../api/hooks/user';
 import { FaGoogle, FaFacebookF } from "react-icons/fa";
 import logo from "../../img/logo.png";
 import art from "../../img/art.png";
 import { useSpring, animated, config } from "react-spring";
 import Modal from "../../components/Modal/index";
-import loginHook from "../../hooks/Login/index";
+import Alert from '../../components/Alert';
 
 function SignUp() {
   // Animação
@@ -31,6 +31,11 @@ function SignUp() {
  const [modalText, setModalText] = useState("Por favor, verifique sua caixa de entrada de e-mail para validar seu cadastro.");
 
  const [userForm, setUserForm] = useState();
+ const [alertMessage, setAlertMessage] = useState(null);
+
+ const navigate = useNavigate();
+
+
 
 const handleChange = (event) => {
   setUserForm({ ...userForm, [event.target.name]: event.target.value });
@@ -41,17 +46,19 @@ const handleChange = (event) => {
    setModalOpen(true);
  };
 
- const registerUser = async () => {
-  const newUser = await loginHook.registerUser(userForm);
 
-  if(newUser){
-    navigate('/login');
+const registerUser = async (e) => {
+  e.preventDefault();
+  const newUser = await handleRegisterSubmit(userForm, setAlertMessage);
+  console.log(newUser);
+  if (newUser) {
+      navigate('/login');
   }
-
- 
 };
 
   return (
+    <>
+    <Alert message={alertMessage} />
     <div className="min-h-screen py-10 bg-colorLightGrey2">
       <div className="container mx-auto">
         <div className="flex flex-col lg:flex-row w-10/12 lg:w-8/12 rounded-xl mx-auto shadow-lg overflow-hidden">
@@ -217,6 +224,7 @@ bg-transparent hover:bg-baseColor hover:text-white"
       <Modal open={modalOpen} setOpen={setModalOpen} title={modalTitle} textPar={modalTextPar} span={modalSpan} text={modalText} />
 
     </div>
+    </>
   );
 }
 

@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { Link, } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { FaGoogle, FaFacebookF } from "react-icons/fa";
 import logo from '../../img/logo.png';
 import art from '../../img/art.png';
+import { handleLoginSubmit } from '../../api/hooks/user';
 import { useSpring, animated, config } from 'react-spring';
+import Alert from '../../components/Alert';
 
 
 function Login() {
@@ -21,8 +24,29 @@ function Login() {
     config: config.wobbly
   }); // Fim Animação
 
+  const [loginForm, setLoginForm] = useState();
+  const [alertMessage, setAlertMessage] = useState(null);
+
+  const navigate = useNavigate();
+
+  const handleChange = (event) => {
+    setLoginForm({ ...loginForm, [event.target.name]: event.target.value });
+  };
+
+  const loginUser = async (e) => {
+    e.preventDefault();
+    const user = await handleLoginSubmit(loginForm, setAlertMessage);
+    if (user) {
+        navigate('/');
+    }
+};
+   
+
 
   return (
+    <>
+    <Alert message={alertMessage} />
+ 
     <div className="min-h-screen py-20">
       <div className="container mx-auto">
         {/* <div className='lg:flex-row w-10/12 lg:w-8/12 mb-5 mx-auto'> 
@@ -38,7 +62,7 @@ function Login() {
                     <img src={logo} alt="Logo" className="w-28"/>
                 </div>
             </Link>
-            <h2 className="text-3xl mb-5 font-extrabold">Entrar</h2>
+            <h2  className="text-3xl mb-5 font-extrabold">Entrar</h2>
             <p className="text-black my-5 font-light">Não tem uma conta?{" "}
               <Link to="/signup" className="text-colorAccent3 font-semibold underline hover:text-buttonColor">Crie uma agora!</Link>{" "}
             </p>
@@ -58,6 +82,7 @@ function Login() {
                     id="email"
                     name="email"
                     placeholder="exemplo@gmail.com"
+                    onChange={handleChange}
                     className="p-2 block w-full rounded-xl border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-borderColor sm:text-sm sm:leading-6 bg-bgColor"
                   />
                 </div>
@@ -84,13 +109,14 @@ function Login() {
                     id="password"
                     name="password"
                     placeholder="*************"
+                    onChange={handleChange}
                     className="p-2 block w-full rounded-xl border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-borderColor sm:text-sm sm:leading-6 bg-bgColor"
                   />
                 </div>
               </div>
 
               <div className="mt-5">
-                <button className="w-full rounded-xl bg-buttonColor px-14 py-2 text-base font-semibold text-white shadow-sm hover:bg-colorDarkGreen focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-colorDarkGreen">
+                <button  onClick={loginUser} className="w-full rounded-xl bg-buttonColor px-14 py-2 text-base font-semibold text-white shadow-sm hover:bg-colorDarkGreen focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-colorDarkGreen">
                   Entrar
                 </button>
               </div>
@@ -144,6 +170,7 @@ function Login() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

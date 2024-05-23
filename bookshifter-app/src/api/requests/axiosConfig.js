@@ -1,11 +1,26 @@
 import axios from 'axios';
 import { createBrowserHistory } from 'history';
+import Cookies from 'js-cookie';
 
 const axiosInstance = axios.create({
-    baseURL: 'url',
+    baseURL: 'http://localhost:8080',
 });
 
 const history = createBrowserHistory();
+
+axiosInstance.interceptors.request.use(
+    config => {
+        const token = Cookies.get('authToken');
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
+    error => {
+        return Promise.reject(error);
+    }
+);
+
 
 axiosInstance.interceptors.response.use(
     response => response,
@@ -26,7 +41,6 @@ axiosInstance.interceptors.response.use(
 
 let showAlert = message => {};
 
-// Função para configurar o alert handler
 export const setAlertHandler = handler => {
     showAlert = handler;
 };
