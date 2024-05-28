@@ -9,8 +9,8 @@ export const handleLoginSubmit = async (credentials, setAlertMessage) => {
         
         // Save the token in cookies
         const token = response.data.token;
-        Cookies.set('authToken', token, { expires: 7 }); // Expira em 7 dias
-
+        Cookies.set('authToken', token, { expires: 7 });
+        
         return response.data;
     } catch (error) {
         console.error('Login failed:', error);

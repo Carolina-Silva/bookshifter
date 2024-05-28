@@ -2,11 +2,20 @@ import React from "react";
 import { BsBook } from "react-icons/bs";
 import { LiaDoorOpenSolid } from "react-icons/lia";
 import { HiOutlineLockOpen } from "react-icons/hi2";
+import { useNavigate } from 'react-router-dom';
 import BookCarousel from "../../components/BookCarousel";
 import imgHome from "../../img/img-home.png";
 import imgCard from "../../img/teste.jpg";
 
 function Home() {
+
+  const navigate = useNavigate();
+
+ const goToBookRegistrations = () =>{
+  navigate('/book-registrations')
+ }
+
+
   return (
     <div className="container mx-auto">
       {/* Home */}
@@ -20,7 +29,7 @@ function Home() {
               Descubra como o Bookshifter está revolucionando a educação e o
               meio ambiente através da doação de livros.
             </div>
-          <button className="bg-buttonColor text-white xl:mt-1 py-2 px-4 rounded-md mb-5 w-full sm:w-auto xl:w-auto md:px-16 hover:bg-secondaryColor">
+          <button onClick={goToBookRegistrations} className="bg-buttonColor text-white xl:mt-1 py-2 px-4 rounded-md mb-5 w-full sm:w-auto xl:w-auto md:px-16 hover:bg-secondaryColor">
             Doar agora
           </button>
           </div>

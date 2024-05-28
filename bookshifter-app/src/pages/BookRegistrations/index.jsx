@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import geo from "../../img/geo.png";
 import Modal from "../../components/Modal/index";
+import { createBook } from '../../api/hooks/books';
+import Alert from '../../components/Alert';
 
 function BookRegistrations() {
   // Modal
@@ -10,12 +13,33 @@ function BookRegistrations() {
   const [modalSpan, setModalSpan] = useState("OBS.:");
   const [modalText, setModalText] = useState("Lembramos que é importante levar os livros até a Fatec o mais breve possível");
 
+  const [bookForm, setBookForm] = useState();
+  const [alertMessage, setAlertMessage] = useState(null);
+  const [isbn, setIsbn] = useState();
+  const [fatecId, setFatecId] = useState();
+
+  const navigate = useNavigate();
+
+  const handleChange = (event) => {
+    setBookForm({ ...bookForm, [event.target.name]: event.target.value });
+  };
+
   const handleOpenModal = (event) => {
     event.preventDefault();
     setModalOpen(true);
   };
 
+  const registerBook = async (e) => {
+    e.preventDefault();
+    const book = await createBook(bookForm, isbn, fatecId);
+    if (book) {
+      navigate('/');
+    }
+  };
+
   return (
+    <>
+    <Alert message={alertMessage} />
     <div className="container mx-auto px-10">
       <form>
         <div className="space-y-12 xl:my-40 my-32">
@@ -34,6 +58,7 @@ function BookRegistrations() {
                   </label>
                   <div className="mt-2">
                     <input
+                      onChange={() => setIsbn(event.target.value)}
                       type="text"
                       id="isbnCodigo"
                       name="isbnCodigo"
@@ -44,16 +69,17 @@ function BookRegistrations() {
                 </div>
                 <div className="sm:col-span-4">
                   <label
-                    htmlFor="estadoLivro"
+                    htmlFor="bookState"
                     className="block text-base font-medium leading-6"
                   >
                     Estado do livro
                   </label>
                   <div className="mt-2">
                     <select
-                      id="estadoLivro"
-                      name="estadoLivro"
-                      autoComplete="estadoLivro"
+                      onChange={handleChange}
+                      id="bookState"
+                      name="bookState"
+                      autoComplete="bookState"
                       className="p-2 block w-full rounded-md border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-borderColor sm:text-sm sm:leading-6 bg-bgColor"
                     >
                       <option>Pouco Usado</option>
@@ -73,6 +99,7 @@ function BookRegistrations() {
                   </label>
                   <div className="mt-2">
                     <input
+                      onChange={() => setFatecId(event.target.value)}
                       type="text"
                       name="fatecDestino"
                       id="fatecDestino"
@@ -89,13 +116,14 @@ function BookRegistrations() {
             </div>
           </div>
 
-          <button className="bg-buttonColor text-white xl:mt-1 py-2 px-4 rounded-md mb-5 w-full xl:w-auto md:px-16 hover:bg-secondaryColor" onClick={handleOpenModal}>
+          <button className="bg-buttonColor text-white xl:mt-1 py-2 px-4 rounded-md mb-5 w-full xl:w-auto md:px-16 hover:bg-secondaryColor" onClick={registerBook}>
             Cadastrar
           </button>
         </div>
       </form>
       <Modal open={modalOpen} setOpen={setModalOpen} title={modalTitle} textPar={modalTextPar} span={modalSpan} text={modalText} />
     </div>
+    </>
   );
 }
 
