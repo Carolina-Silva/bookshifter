@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Bars3BottomRightIcon, XMarkIcon, BookOpenIcon, ArrowDownLeftIcon  } from '@heroicons/react/24/solid';
+import { Bars3BottomRightIcon, XMarkIcon, BookOpenIcon, ArrowRightStartOnRectangleIcon  } from '@heroicons/react/24/solid';
 import { Link } from 'react-router-dom';
 import logo from '../../img/logo.png';
 import Cookies from 'js-cookie';
@@ -63,7 +63,7 @@ export default function Navbar() {
                             </div>
                             <div className="md:ml-8 md:my-0 my-7">
                                 <Link onClick={logout} to="/" className="font-semibold px-2 py-1 rounded hover:text-buttonColor duration-500">
-                                    <ArrowDownLeftIcon className="h-5 w-5 inline-block mr-1" /> Sair
+                                    <ArrowRightStartOnRectangleIcon className="h-5 w-5 inline-block mr-1" /> Sair
                                 </Link>
                             </div>
                         </div>
@@ -92,7 +92,7 @@ export default function Navbar() {
                             <BookOpenIcon className="h-5 w-5 inline-block mr-1" />  Meus livros
                         </Link>
                         <Link onClick={logout} to="/" className="ml-8 font-semibold text-black hover:text-buttonColor">
-                            <ArrowDownLeftIcon className="h-5 w-5 inline-block mr-1" /> Sair
+                            <ArrowRightStartOnRectangleIcon className="h-5 w-5 inline-block mr-1" /> Sair
                         </Link>
                     </div>
                 )}

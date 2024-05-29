@@ -1,20 +1,33 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { BsBook } from "react-icons/bs";
 import { LiaDoorOpenSolid } from "react-icons/lia";
 import { HiOutlineLockOpen } from "react-icons/hi2";
 import { useNavigate } from 'react-router-dom';
+import { fetchAllBooks } from '../../api/hooks/books';
 import BookCarousel from "../../components/BookCarousel";
 import imgHome from "../../img/img-home.png";
-import imgCard from "../../img/teste.jpg";
 
 function Home() {
+  const [books, setBooks] = useState(null);
 
   const navigate = useNavigate();
 
- const goToBookRegistrations = () =>{
-  navigate('/book-registrations')
- }
+  const goToBookRegistrations = () => {
+    navigate('/book-registrations')
+  }
 
+  const goToBookSearch = () => {
+    navigate('/search-books')
+  }
+
+  useEffect(() => {
+    const getBooks = async () => {
+      const fetchedBooks = await fetchAllBooks();
+      setBooks(fetchedBooks);
+    };
+
+    getBooks();
+  }, []);
 
   return (
     <div className="container mx-auto">
@@ -29,9 +42,13 @@ function Home() {
               Descubra como o Bookshifter está revolucionando a educação e o
               meio ambiente através da doação de livros.
             </div>
-          <button onClick={goToBookRegistrations} className="bg-buttonColor text-white xl:mt-1 py-2 px-4 rounded-md mb-5 w-full sm:w-auto xl:w-auto md:px-16 hover:bg-secondaryColor">
-            Doar agora
-          </button>
+            <button onClick={goToBookRegistrations} className="bg-buttonColor text-white xl:mt-1 py-2 px-4 rounded-md mb-5 mr-2 w-36 sm:w-auto xl:w-auto md:px-8 hover:bg-secondaryColor">
+              Doar agora
+            </button>
+            <button onClick={goToBookSearch} className="bg-buttonColor text-white xl:mt-1 py-2 px-4 rounded-md mb-5 ml-2 w-36 sm:w-auto xl:w-auto md:px-8 hover:bg-secondaryColor">
+              Procurar livros
+            </button>
+
           </div>
           <div className="xl:absolute xl:top-0 xl:left-[580px] 2xl:left-[700px] xl:w-[530px] xl:h-[380px] xl:py-2 xl:px-4 rounded-md xl:z-20">
             <img src={imgHome} alt="capa do livro" className="w-full h-full" />
@@ -49,7 +66,7 @@ function Home() {
           Explore nossa seleção de livros para encontrar sua próxima grande
           leitura.
         </div>
-        <BookCarousel imgUrl={imgCard} />
+        {books ? <BookCarousel books={books} /> : 'Sem livros cadastrados'}
       </section>
 
       {/* Beneficios */}
