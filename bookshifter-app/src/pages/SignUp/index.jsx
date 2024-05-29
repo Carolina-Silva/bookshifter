@@ -50,7 +50,6 @@ const handleChange = (event) => {
 const registerUser = async (e) => {
   e.preventDefault();
   const newUser = await handleRegisterSubmit(userForm, setAlertMessage);
-  console.log(newUser);
   if (newUser) {
       navigate('/login');
   }

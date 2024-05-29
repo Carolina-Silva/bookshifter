@@ -12,9 +12,7 @@ export const getBookById = (id) => {
 
 // Adicionar um novo livro (com parâmetros de ISBN e fatecId na URL)
 export const addBook = (bookData, isbn, fatecId) => {
-    const a = axios.post(`/books?isbn=${isbn}&fatecId=${fatecId}`, bookData);
-    console.log(a)
-    return a
+    return  axios.post(`/books?isbn=${isbn}&fatecId=${fatecId}`, bookData);
 };
 
 // Deletar um livro por ID

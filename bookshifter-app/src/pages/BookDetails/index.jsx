@@ -1,17 +1,29 @@
-import React from "react";
-import { Fragment, useRef, useState } from "react";
-import book from "../../img/book.png";
-import { Link } from "react-router-dom";
+import { Fragment, useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
+import { fetchBookById } from '../../api/hooks/books';
 
 function BookDetails() {
+  const { id } = useParams();
   // Modal
   const [open, setOpen] = useState(false);
+  const [book, setBook] = useState();
+
+  useEffect(() => {
+    const getBooks = async () => {
+      const fetchedBook = await fetchBookById(id);
+      setBook(fetchedBook);
+    };
+    if(id){
+      getBooks(id);
+    }
+  }, [id]);
+
   return (
     <div className="container mx-auto px-10 xl:px-40">
       <div className="flex flex-wrap xl-mt-40 items-start mt-28">
         <div className="xl:w-1/3 flex justify-center xl:justify-start">
-          <img src={book} alt="" className="xl:w-[300px] w-[300px]" />
+          {book ? <img src={book.largeCoverUrl} alt="" className="xl:w-[300px] w-[300px]" /> : ''}
         </div>
 
         <div className="w-full md:w-2/3 md:pl-10 max-w-xl">
@@ -58,11 +70,11 @@ function BookDetails() {
           </div>
         </div>
       </div>
-      <div className="xl:mt-20 mt-10">
+      {/* <div className="xl:mt-20 mt-10">
         <h2 className="xl:text-4xl font-extrabold mb-8 mt-4 text-left text-2xl md:text-3xl">
           Itens relacionados:
         </h2>
-      </div>
+      </div> */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={setOpen}>
           <Transition.Child

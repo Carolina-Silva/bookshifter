@@ -1,8 +1,22 @@
-import React from "react";
+import {useState, useEffect} from "react";
 import imgSearch from "../../img/imgSearch.png";
 import { BsSearch } from "react-icons/bs";
+import { fetchAllBooks } from '../../api/hooks/books';
+import BookCard from "../../components/BookCard";
 
 function SearchBooks() {
+  const [books, setBooks] = useState(null);
+
+
+  useEffect(() => {
+    const getBooks = async () => {
+      const fetchedBooks = await fetchAllBooks();
+      setBooks(fetchedBooks);
+    };
+
+    getBooks();
+  }, []);
+
   return (
     <div>
       <div className="container mx-auto">
@@ -54,6 +68,13 @@ function SearchBooks() {
           <h2 className="xl:text-4xl font-extrabold mb-8 mt-4 text-left text-2xl md:text-3xl">
           Todos os livros
           </h2>
+          {books && books.length > 0 && ( // Adicione uma verificação para garantir que books não seja null
+            <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
+              {books.map((book, index) => (
+                <BookCard key={index} imgUrl={book.mediumCoverUrl} id={book.id} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

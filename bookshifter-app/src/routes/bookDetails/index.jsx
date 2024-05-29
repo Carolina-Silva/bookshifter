@@ -2,7 +2,7 @@ import BookDetails from "../../pages/BookDetails";
 
 export default [
   {
-    path: '/book-details',
+    path: '/book-details/:id',
     element: <BookDetails />,
   },
 ];

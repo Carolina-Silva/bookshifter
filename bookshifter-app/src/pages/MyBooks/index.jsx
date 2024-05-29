@@ -1,9 +1,22 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import imgBooks from "../../img/imgMyBooks.png";
 import { Link } from "react-router-dom";
+import { fetchUserBooks } from '../../api/hooks/books';
 import { AiFillPlusCircle } from "react-icons/ai";
+import BookCard from "../../components/BookCard";
 
 function MyBooks() {
+  const [books, setBooks] = useState([]);
+
+  useEffect(() => {
+    const getBooks = async () => {
+      const fetchedBooks = await fetchUserBooks();
+      setBooks(fetchedBooks.books);
+    };
+
+    getBooks();
+  }, []);
+
   return (
     <div>
       <div className="container mx-auto">
@@ -27,14 +40,20 @@ function MyBooks() {
             Meus livros cadastrados
           </h2>
           <Link
-            to="/"
+            to="/book-registrations"
             title="Cadastrar um novo livro"
             className="bg-colorDarkGreen hover:bg-colorAccent text-white font-semibold px-4 py-1.5 rounded-xl duration-500 md:static bg-buttonColor hover:bg-secondaryColor ml-4 flex items-center"
           >
             <AiFillPlusCircle className="xl:mr-2 w-5 md:block" />
             <span className="hidden md:inline">Cadastrar um novo livro</span>
           </Link>
+          
         </div>
+        <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
+            {books.map((book, index) => (
+              <BookCard key={index} imgUrl={book.mediumCoverUrl} />
+            ))}
+          </div>
 
         {/* Minha lista */}
         <div className="xl:mt-20 mt-20">
