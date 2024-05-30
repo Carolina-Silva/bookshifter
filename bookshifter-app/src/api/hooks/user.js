@@ -25,7 +25,6 @@ export const handleLoginSubmit = async (credentials, setAlertMessage) => {
 export const handleRegisterSubmit = async (userData, setAlertMessage) => {
     try {
         const response = await registerUser(userData);
-        console.log('Registration successful:', response.data);
         return response.data;
     } catch (error) {
         console.error('Registration failed:', error);

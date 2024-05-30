@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react";
-import imgSearch from "../../img/imgSearch.png";
+// import imgSearch from "../../img/imgSearch.png";
 import { BsSearch } from "react-icons/bs";
 import { fetchAllBooks } from '../../api/hooks/books';
 import BookCard from "../../components/BookCard";
@@ -31,7 +31,7 @@ function SearchBooks() {
       </div>
       {/* Pesquisar - botão */}
 
-      <div className="relative h-[300px] xl:h-[400px]">
+      <div className="relative h-[300px] xl:h-[50px]">
         <form className="xl:max-w-4xl md:max-w-2xl max-w-sm mx-auto relative z-10">
           <div className="relative">
             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -56,11 +56,11 @@ function SearchBooks() {
           className="absolute top-7 w-full xl:h-[350px] h-[450px] z-0"
           style={{ marginBottom: "3rem" }}
         >
-          <img
+          {/* <img
             src={imgSearch}
             alt="Dois homens e uma mulher, sentados estudando numa biblioteca, com livros na mão e na mesa."
             className="w-full h-full object-cover"
-          />
+          /> */}
         </div>
       </div>
       <div className="container mx-auto px-10 xl:px-40">
