@@ -3,7 +3,7 @@ import imgBooks from "../../img/imgMyBooks.png";
 import { Link } from "react-router-dom";
 import { fetchUserBooks } from '../../api/hooks/books';
 import { AiFillPlusCircle } from "react-icons/ai";
-import BookCard from "../../components/BookCard";
+import MyBookCard from "../../components/MyBookCard";
 
 function MyBooks() {
   const [books, setBooks] = useState([]);
@@ -51,7 +51,7 @@ function MyBooks() {
         </div>
         <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
             {books.map((book, index) => (
-              <BookCard key={index} imgUrl={book.mediumCoverUrl} />
+              <MyBookCard key={index} book={book} />
             ))}
           </div>
 

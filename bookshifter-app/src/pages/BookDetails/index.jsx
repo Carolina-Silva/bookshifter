@@ -1,5 +1,6 @@
 import { Fragment, useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import { fetchBookById } from '../../api/hooks/books';
 
@@ -8,6 +9,13 @@ function BookDetails() {
   // Modal
   const [open, setOpen] = useState(false);
   const [book, setBook] = useState();
+  const [showFullSynopsis, setShowFullSynopsis] = useState(false);
+
+  const navigate = useNavigate();
+
+  const toggleSynopsis = () => {
+    setShowFullSynopsis(!showFullSynopsis);
+  };
 
   useEffect(() => {
     const getBooks = async () => {
@@ -23,7 +31,7 @@ function BookDetails() {
     <div className="container mx-auto px-10 xl:px-40">
       <div className="flex flex-wrap xl-mt-40 items-start mt-28">
         <div className="xl:w-1/3 flex justify-center xl:justify-start">
-          {book ? <img src={book.largeCoverUrl} alt="" className="xl:w-[300px] w-[300px]" /> : ''}
+          {book ? <img src={book.largeCoverUrl} alt="capa do livro" className="xl:w-[300px] w-[300px]" /> : ''}
         </div>
 
         <div className="w-full md:w-2/3 md:pl-10 max-w-xl">
@@ -31,25 +39,26 @@ function BookDetails() {
             Descrição
           </h1>
           <p className="text-1xl font-base mb-2">
-            <span className="font-bold text-base">Título: </span>A Culpa é das
-            Estrelas
+            <span className="font-bold text-base">Título: </span>{book ? `${book.title}` : ''}
           </p>
           <p className="text-1xl font-base mb-2">
-            <span className="font-bold text-base">Autor: </span>John Green
+            <span className="font-bold text-base">Autor: </span>{book ? `${book.authors}` : ''}
           </p>
           <p className="text-1xl font-base mb-2 text-justify">
-            <span className="font-bold text-base">Estado do Livro: </span>Em bom
-            estado, algumas marcas de uso na capa, mas páginas internas intactas
-            e sem rasuras.
+            <span className="font-bold text-base">Estado do Livro: </span>{book ? `${book.bookState}` : ''}
           </p>
           <p className="text-1xl font-base mb-2 text-justify">
-            <span className="font-bold text-base">Sinopse Breve: </span>A Culpa
-            é das Estrelas é uma história comovente que segue a jornada de Hazel
-            Grace Lancaster, uma jovem com câncer, e Augustus Waters, um rapaz
-            que conquista seu coração. Juntos, eles embarcam em uma jornada de
-            descoberta, amor e aceitação enquanto enfrentam os desafios da vida
-            e da morte. Uma história emocionante sobre a beleza e fragilidade da
-            vida, e o poder do amor mesmo nos momentos mais difíceis.
+            <span className="font-bold text-base">Sinopse Breve: </span>
+            {book && book.description && (
+              <>
+                {showFullSynopsis ? book.description : `${book.description.slice(0, 100)}...`}
+                {book.description.length > 100 && (
+                  <button className="text-blue-500 hover:underline" onClick={toggleSynopsis}>
+                    {showFullSynopsis ? "Ver menos" : "Ler mais"}
+                  </button>
+                )}
+              </>
+            )}
           </p>
           <div className="flex mt-5">
             <button
@@ -61,7 +70,7 @@ function BookDetails() {
               Reservar
             </button>
             <Link
-              to="/"
+              to="/my-books"
               title="Adicionar a lista de desejos"
               className="bg-colorDarkGreen hover:bg-colorAccent text-black font-semibold px-8 py-1.5 border border-gray-400 rounded-xl duration-500 md:static bg-transparent hover:bg-buttonColor hover:text-white ml-4 flex items-center"
             >
@@ -116,7 +125,7 @@ function BookDetails() {
                           <p className="text-lg mt-2">Lembre-se de 
                             <span className="font-bold"> anotar o código abaixo,</span> pois será necessário apresentá-lo no momento da retirada.
                           </p>
-                          <p className="bg-buttonColor px-10 py-2 text-white font-bold mt-5 text-center rounded-xl ">COD: 78698653455</p>
+                          <p className=" px-10 py-2 text-buttonColor font-bold mt-5 text-center rounded-xl ">COD: 78698653455</p>
                         </div>
                       </div>
                     </div>
@@ -126,7 +135,10 @@ function BookDetails() {
                       type="button"
                       className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-3
 sm:mt-0 sm:w-auto  hover:bg-redColor hover:text-white"
-                      onClick={() => setOpen(false)}
+                      onClick={() => {
+                        setOpen(false)
+                        navigate('/')
+                      }}
                     >
                       Fechar
                     </button>
