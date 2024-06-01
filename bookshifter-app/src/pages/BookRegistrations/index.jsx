@@ -20,8 +20,8 @@ function BookRegistrations() {
       "street": "Avenida Luiz Merenda",
       "neighborhood": "Campanário",
       "city": "Diadema",
-      "latitude": -23.55052, 
-      "longitude": -46.633308
+      "latitude": -23.673550901220686, 
+      "longitude": -46.618919415565415
     },
     {
       "id": 2,
@@ -29,43 +29,53 @@ function BookRegistrations() {
       "street": "Rua Professor Engenheiro Claúdio Abrahão",
       "neighborhood": "Jardim São João",
       "city": "Ferraz de Vasconcelos",
-      "latitude": -22.909938, 
-      "longitude": -47.062633
+      "latitude": -23.530695992538483, 
+      "longitude": -46.36890409271676
     },
     {
       "id": 3,
       "name": "Fatec Guarulhos",
       "street": "Rua Cristobal Claudio Elillo",
       "neighborhood": "Parque Cecap",
-      "city": "Guarulhos"
+      "city": "Guarulhos",
+      "latitude": -23.45478157372945,
+      "longitude": -46.50147515594536
     },
     {
       "id": 4,
       "name": "Fatec Carapicuíba",
       "street": "Avenida Francisco Pignatari",
       "neighborhood": "Vila Gustavo Correia",
-      "city": "Carapicuíba"
+      "city": "Carapicuíba",
+      "latitude": -23.517328419575716, 
+      "longitude": -46.83560725858099
     },
     {
       "id": 5,
       "name": "Fatec Mauá",
       "street": "Avenida Capitão João",
       "neighborhood": "Matriz",
-      "city": "Mauá"
+      "city": "Mauá",
+      "latitude": -23.6636149808426, 
+      "longitude": -46.4601205310192
     },
     {
       "id": 6,
       "name": "Fatec Osasco",
       "street": "Rua Pedro Rissatto",
       "neighborhood": "Remédios",
-      "city": "Osasco"
+      "city": "Osasco",
+      "latitude": -23.52267186213469,
+      "longitude":  -46.75916720707256
     },
     {
       "id": 7,
       "name": "Fatec Santo André",
       "street": "Rua Prefeito Justino Paixão",
       "neighborhood": "Centro",
-      "city": "Santo André"
+      "city": "Santo André",
+      "latitude": -23.66065171465236, 
+      "longitude": -46.5304584375464
     }
   ]);
   const [bookForm, setBookForm] = useState();

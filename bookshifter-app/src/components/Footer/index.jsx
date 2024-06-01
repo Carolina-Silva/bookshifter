@@ -2,7 +2,7 @@ import logo from '../../img/logo.png';
 
 export default function Footer() {
   return (
-    <footer className="w-full p-8">
+    <footer className="w-full p-8 mt-15">
       <div className="flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 text-center md:justify-between">
         {/* LOGO */}
         <div>
