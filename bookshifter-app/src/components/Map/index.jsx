@@ -24,7 +24,7 @@ const UpdateMap = ({ latitude, longitude }) => {
 
 const Map = ({ latitude, longitude, name }) => {
   return (
-    <MapContainer center={[latitude, longitude]} zoom={200} style={{ height: "500px", width: "100%" }}>
+    <MapContainer center={[latitude, longitude]} zoom={200} style={{ height: "500px", width: "100%",zIndex: 1  }}>
       <UpdateMap latitude={latitude} longitude={longitude} />
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

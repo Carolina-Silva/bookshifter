@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Map from '../../components/Map';
 import Modal from "../../components/Modal/index";
@@ -110,10 +110,16 @@ function BookRegistrations() {
   const registerBook = async (e) => {
     e.preventDefault();
     const book = await createBook(bookForm, isbn, fatecId);
-    if (book) {
+    console.log(book)
+      handleOpenModal(e)
+  };
 
-      navigate('/');
-    }
+  const handleNewDonation = () => {
+    window.location.reload();
+  };
+
+  const handleGoHome = () => {
+    navigate('/');
   };
 
   return (
@@ -207,7 +213,24 @@ function BookRegistrations() {
         </button>
       </div>
     </form>
-        <Modal open={modalOpen} setOpen={setModalOpen} title={modalTitle} textPar={modalTextPar} span={modalSpan} text={modalText} />
+        <Modal open={modalOpen} setOpen={setModalOpen} title={modalTitle} textPar={modalTextPar} span={modalSpan} text={modalText}>
+        <div className="flex justify-between">
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              onClick={handleNewDonation}
+            >
+              Doar Novo Livro
+            </button>
+            <button
+              className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              onClick={handleGoHome}
+            >
+              Voltar para Home
+            </button>
+          </div>
+
+    
+        </Modal>
       </div>
     </>
   );

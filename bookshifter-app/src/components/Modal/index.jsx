@@ -1,9 +1,9 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { Dialog, Transition } from "@headlessui/react";
 
-export default function Modal({ title, textPar, span, text, open, setOpen }) {
+export default function Modal({ title, textPar, span, text, open, setOpen, children }) {
   return (
-    <div >
+    <div>
       <Transition.Root show={open} as={Fragment} style={{ zIndex: 80 }}>
         <Dialog as="div" className="relative z-10" onClose={setOpen}>
           <Transition.Child
@@ -39,15 +39,19 @@ export default function Modal({ title, textPar, span, text, open, setOpen }) {
                           {title}
                         </Dialog.Title>
                         <div className="mt-5">
-                            <p className="text-lg text-justify mb-2">{textPar}</p>
+                          <p className="text-lg text-justify mb-2">{textPar}</p>
                           <p className="text-lg">
                             <b>{span}</b> {text}
                           </p>
                         </div>
                       </div>
                     </div>
+                    {/* Renderiza os componentes filhos aqui */}
+                    <div className="mt-5">
+                      {children}
+                    </div>
                   </div>
-                  <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                  {/* <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                     <button
                       type="button"
                       className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 
@@ -56,7 +60,7 @@ hover:bg-gray-50 sm:mt-0 sm:w-auto hover:bg-buttonColor hover:bg-redColor hover:
                     >
                       Fechar
                     </button>
-                  </div>
+                  </div> */}
                 </Dialog.Panel>
               </Transition.Child>
             </div>
