@@ -1,11 +1,17 @@
 import {useState, useEffect} from "react";
-// import imgSearch from "../../img/imgSearch.png";
 import { BsSearch } from "react-icons/bs";
-import { fetchAllBooks } from '../../api/hooks/books';
+import { searchForBooks, fetchAllBooks } from '../../api/hooks/books';
 import BookCard from "../../components/BookCard";
 
 function SearchBooks() {
   const [books, setBooks] = useState(null);
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    const inputSearch = e.target.value;
+    const fetchedBooks = await searchForBooks(inputSearch);
+      setBooks(fetchedBooks);
+  };
 
 
   useEffect(() => {
@@ -38,6 +44,8 @@ function SearchBooks() {
               <BsSearch />
             </div>
             <input
+            onChange={handleSearch}
+            name="search"
               type="search"
               id="default-search"
               className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50"
