@@ -4,6 +4,7 @@ import Map from '../../components/Map';
 import Modal from "../../components/Modal/index";
 import { createBook } from '../../api/hooks/books';
 import Alert from '../../components/Alert';
+import { InformationCircleIcon } from '@heroicons/react/24/solid';
 
 function BookRegistrations() {
   // Modal
@@ -20,7 +21,7 @@ function BookRegistrations() {
       "street": "Avenida Luiz Merenda",
       "neighborhood": "Campanário",
       "city": "Diadema",
-      "latitude": -23.673550901220686, 
+      "latitude": -23.673550901220686,
       "longitude": -46.618919415565415
     },
     {
@@ -29,7 +30,7 @@ function BookRegistrations() {
       "street": "Rua Professor Engenheiro Claúdio Abrahão",
       "neighborhood": "Jardim São João",
       "city": "Ferraz de Vasconcelos",
-      "latitude": -23.530695992538483, 
+      "latitude": -23.530695992538483,
       "longitude": -46.36890409271676
     },
     {
@@ -47,7 +48,7 @@ function BookRegistrations() {
       "street": "Avenida Francisco Pignatari",
       "neighborhood": "Vila Gustavo Correia",
       "city": "Carapicuíba",
-      "latitude": -23.517328419575716, 
+      "latitude": -23.517328419575716,
       "longitude": -46.83560725858099
     },
     {
@@ -56,7 +57,7 @@ function BookRegistrations() {
       "street": "Avenida Capitão João",
       "neighborhood": "Matriz",
       "city": "Mauá",
-      "latitude": -23.6636149808426, 
+      "latitude": -23.6636149808426,
       "longitude": -46.4601205310192
     },
     {
@@ -66,7 +67,7 @@ function BookRegistrations() {
       "neighborhood": "Remédios",
       "city": "Osasco",
       "latitude": -23.52267186213469,
-      "longitude":  -46.75916720707256
+      "longitude": -46.75916720707256
     },
     {
       "id": 7,
@@ -74,7 +75,7 @@ function BookRegistrations() {
       "street": "Rua Prefeito Justino Paixão",
       "neighborhood": "Centro",
       "city": "Santo André",
-      "latitude": -23.66065171465236, 
+      "latitude": -23.66065171465236,
       "longitude": -46.5304584375464
     }
   ]);
@@ -85,6 +86,16 @@ function BookRegistrations() {
   const [latitude, setLatitude] = useState(-23.55052);
   const [longitude, setLongitude] = useState(-46.633308);
   const [name, setName] = useState('Fatec São Paulo');
+  const [showISBNInfo, setShowISBNInfo] = useState(false);
+
+  const handleMouseEnter = () => {
+    setShowISBNInfo(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowISBNInfo(false);
+  };
+
 
   const navigate = useNavigate();
 
@@ -111,7 +122,7 @@ function BookRegistrations() {
     e.preventDefault();
     const book = await createBook(bookForm, isbn, fatecId);
     console.log(book)
-      handleOpenModal(e)
+    handleOpenModal(e)
   };
 
   const handleNewDonation = () => {
@@ -126,95 +137,109 @@ function BookRegistrations() {
     <>
       <Alert message={alertMessage} />
       <div className="container mx-auto px-10">
-      <form>
-      <div className="space-y-12 xl:my-40 my-32">
-        <h1 className="xl:text-5xl font-extrabold mb-4 mt-4 text-3xl text-center xl:text-left md:text-4xl md:text-left">
-          Doar um livro
-        </h1>
-        <div className="border-gray-900/10 flex flex-col xl:flex-row items-center xl:items-start">
-          <div className="flex-1">
-            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div className="sm:col-span-6">
-                <label
-                  htmlFor="isbnCodigo"
-                  className="block text-base font-medium leading-6"
-                >
-                  ISBN
-                </label>
-                <div className="mt-2">
-                  <input
-                    onChange={(event) => setIsbn(event.target.value)}
-                    type="text"
-                    id="isbnCodigo"
-                    name="isbnCodigo"
-                    placeholder="xxx-xx-xxx-xxxx-x"
-                    className="p-2 block w-full rounded-md border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-borderColor sm:text-sm sm:leading-6 bg-bgColor"
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-6">
-                <label
-                  htmlFor="bookState"
-                  className="block text-base font-medium leading-6"
-                >
-                  Estado do livro
-                </label>
-                <div className="mt-2">
-                  <select
-                    onChange={handleChange}
-                    id="bookState"
-                    name="bookState"
-                    autoComplete="bookState"
-                    className="p-2 block w-full rounded-md border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-borderColor sm:text-sm sm:leading-6 bg-bgColor"
-                  >
-                    <option>Pouco Usado</option>
-                    <option>Usado - Aceitável</option>
-                    <option>Usado - Com marcas de uso</option>
-                    <option>Novo</option>
-                  </select>
-                </div>
-              </div>
+        <form>
+          <div className="space-y-12 xl:my-40 my-32">
+            <h1 className="xl:text-5xl font-extrabold mb-4 mt-4 text-3xl text-center xl:text-left md:text-4xl md:text-left">
+              Doar um livro
+            </h1>
+            <div className="border-gray-900/10 flex flex-col xl:flex-row items-center xl:items-start">
+              <div className="flex-1">
+                <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                  <div className="sm:col-span-6">
+                    <label
+                      htmlFor="isbnCodigo"
+                      className="block text-base font-medium leading-6"
+                    >
+                      ISBN
+                    </label>
+                    <div className="mt-2 relative">
+                    <div
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                        className="transform -translate-y-1/2 cursor-pointer w-8  mt-7"
+                      >
+                        <InformationCircleIcon />
+                      </div>
+                      <input
+                        onChange={(event) => setIsbn(event.target.value)}
+                        type="text"
+                        id="isbnCodigo"
+                        name="isbnCodigo"
+                        placeholder="xxx-xx-xxx-xxxx-x"
+                        className="p-2 block w-full rounded-md border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-borderColor sm:text-sm sm:leading-6 bg-bgColor"
+                      />
+                    
+                    </div>
+                    {showISBNInfo && (
+                      <div className="absolute  w-80 transform bg-white p-4 border border-gray-300 shadow-md">
+                        <p className="text-center">O ISBN é um número internacional padronizado que identifica um livro. Você pode encontrá-lo na contracapa ou na página de informações do livro.</p>
+                        <img src="https://alemdoslivros.com/wp-content/uploads/2022/08/Exemplo-de-ISBN-com-codigo-de-barras.jpg" />
+                      </div>
+                    )}
+                  </div>
+                  <div className="sm:col-span-6">
+                    <label
+                      htmlFor="bookState"
+                      className="block text-base font-medium leading-6"
+                    >
+                      Estado do livro
+                    </label>
+                    <div className="mt-2">
+                      <select
+                        onChange={handleChange}
+                        id="bookState"
+                        name="bookState"
+                        autoComplete="bookState"
+                        className="p-2 block w-full rounded-md border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-borderColor sm:text-sm sm:leading-6 bg-bgColor"
+                      >
+                        <option>Pouco Usado</option>
+                        <option>Usado - Aceitável</option>
+                        <option>Usado - Com marcas de uso</option>
+                        <option>Novo</option>
+                      </select>
+                    </div>
+                  </div>
 
-              <div className="sm:col-span-6">
-                <label
-                  htmlFor="fatecDestino"
-                  className="block text-base font-medium leading-6"
-                >
-                  Fatec de destino
-                </label>
-                <div className="mt-2">
-                  <select
-                    onChange={handleFatecChange}
-                    id="fatecDestino"
-                    name="fatecDestino"
-                    autoComplete="fatecDestino"
-                    className="p-2 block w-full rounded-md border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-borderColor w-full sm:text-sm sm:leading-6 bg-bgColor"
-                  >
-                    <option value="">Selecione a Fatec</option>
-                    {allFatecs.map((fatec) => (
-                      <option key={fatec.id} value={fatec.id}>
-                        {fatec.name}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="sm:col-span-6">
+                    <label
+                      htmlFor="fatecDestino"
+                      className="block text-base font-medium leading-6"
+                    >
+                      Fatec de destino
+                    </label>
+                    <div className="mt-2">
+                      <select
+                        onChange={handleFatecChange}
+                        id="fatecDestino"
+                        name="fatecDestino"
+                        autoComplete="fatecDestino"
+                        className="p-2 block w-full rounded-md border-0 py-1.8 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-borderColor w-full sm:text-sm sm:leading-6 bg-bgColor"
+                      >
+                        <option value="">Selecione a Fatec</option>
+                        {allFatecs.map((fatec) => (
+                          <option key={fatec.id} value={fatec.id}>
+                            {fatec.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
                 </div>
+              </div>
+              <div className="mt-10 xl:mt-0 xl:ml-10 w-full xl:w-1/2 max-h-0.5">
+                <Map latitude={latitude} longitude={longitude} name={name} />
               </div>
             </div>
+            <button
+              className="bg-buttonColor text-white xl:mt-1 py-2 px-4 rounded-md mb-5 w-full xl:w-auto md:px-16 hover:bg-secondaryColor"
+              onClick={registerBook}
+            >
+              Cadastrar
+            </button>
           </div>
-          <div className="mt-10 xl:mt-0 xl:ml-10 w-full xl:w-1/2 max-h-0.5">
-             <Map latitude={latitude} longitude={longitude} name={name} />
-          </div>
-        </div>
-        <button
-          className="bg-buttonColor text-white xl:mt-1 py-2 px-4 rounded-md mb-5 w-full xl:w-auto md:px-16 hover:bg-secondaryColor"
-          onClick={registerBook}
-        >
-          Cadastrar
-        </button>
-      </div>
-    </form>
+        </form>
         <Modal open={modalOpen} setOpen={setModalOpen} title={modalTitle} textPar={modalTextPar} span={modalSpan} text={modalText}>
-        <div className="flex justify-between">
+          <div className="flex justify-between">
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               onClick={handleNewDonation}
@@ -229,7 +254,7 @@ function BookRegistrations() {
             </button>
           </div>
 
-    
+
         </Modal>
       </div>
     </>
